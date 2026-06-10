@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sandra Multi Marcas – Tu Asesora Personal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:   #0A0A0A;
+      --deep:    #130820;
+      --fuchsia: #FF1F8E;
+      --pink:    #FFB6D9;
+      --gold:    #D4AF37;
+      --gold2:   #F5D97A;
+      --white:   #FFFFFF;
+      --card-bg: rgba(255,255,255,0.04);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── SHIMMER KEYFRAMES ─── */
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(255,31,142,0.6); }
+      70%  { box-shadow: 0 0 0 18px rgba(255,31,142,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,31,142,0); }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      25%       { opacity: 0.6; transform: scale(1.15) rotate(8deg); }
+      75%       { opacity: 0.8; transform: scale(0.9) rotate(-5deg); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes glowBorder {
+      0%, 100% { border-color: var(--fuchsia); box-shadow: 0 0 10px rgba(255,31,142,0.3); }
+      50%       { border-color: var(--gold);    box-shadow: 0 0 20px rgba(212,175,55,0.5);  }
+    }
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50%       { opacity: 1;   transform: scale(1.2); }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #1a0030 0%, #0A0A0A 50%, #1a0015 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 60px 20px 40px;
+      overflow: hidden;
+    }
+
+    /* Decorative background blobs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,31,142,0.15) 0%, transparent 70%);
+      top: -100px; left: -150px;
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+      bottom: -80px; right: -100px;
+      border-radius: 50%;
+    }
+
+    /* Stars */
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .star {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: var(--gold2);
+      border-radius: 50%;
+      animation: starTwinkle 2s ease-in-out infinite;
+    }
+
+    .eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease both;
+    }
+
+    .diamond-icon {
+      font-size: 4rem;
+      animation: float 3s ease-in-out infinite, sparkle 4s ease-in-out infinite;
+      display: block;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 20px rgba(212,175,55,0.8));
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 12vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--white) 30%, var(--gold2) 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      animation: fadeInUp 0.9s ease 0.1s both;
+    }
+
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 400;
+      color: var(--fuchsia);
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .hero-marcas {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,182,217,0.7);
+      margin-top: 10px;
+      animation: fadeInUp 1s ease 0.3s both;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 3vw, 1.4rem);
+      color: rgba(255,255,255,0.75);
+      max-width: 480px;
+      margin: 28px auto 0;
+      line-height: 1.6;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .divider-gold {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 28px auto;
+      animation: fadeInUp 1s ease 0.5s both;
+    }
+
+    /* ─── WHATSAPP BTN ─── */
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--fuchsia), #c4006a);
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      padding: 16px 36px;
+      border-radius: 60px;
+      animation: pulse-ring 2s ease-in-out infinite, fadeInUp 1s ease 0.6s both;
+      transition: transform 0.2s, filter 0.2s;
+      position: relative;
+      z-index: 2;
+      margin-top: 10px;
+    }
+    .btn-whatsapp:hover {
+      transform: scale(1.05);
+      filter: brightness(1.15);
+    }
+
+    /* ─── SECTION WRAPPER ─── */
+    section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(135deg, var(--white), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 50px;
+    }
+
+    /* ─── SERVICES GRID ─── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,31,142,0.2);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,31,142,0.06), rgba(212,175,55,0.06));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 20px 50px rgba(212,175,55,0.2), 0 0 0 1px rgba(212,175,55,0.3);
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-emoji {
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 0 8px rgba(255,31,142,0.5));
+    }
+    .service-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .service-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    /* ─── BRANDS STRIP ─── */
+    .brands-section {
+      background: linear-gradient(135deg, #0e0018, #1a0010);
+      padding: 60px 20px;
+    }
+    .brands-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .brands-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 36px;
+    }
+    .brand-chip {
+      border: 1.5px solid var(--gold);
+      color: var(--gold2);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border-radius: 40px;
+      background: rgba(212,175,55,0.06);
+      animation: glowBorder 3s ease-in-out infinite;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .brand-chip:nth-child(2n)   { animation-delay: 0.5s; }
+    .brand-chip:nth-child(3n)   { animation-delay: 1s; }
+    .brand-chip:hover {
+      background: rgba(212,175,55,0.18);
+      transform: scale(1.05);
+    }
+
+    /* ─── PROMISE SECTION ─── */
+    .promise-section {
+      background: linear-gradient(160deg, #10001a 0%, #0A0A0A 100%);
+      padding: 80px 20px;
+    }
+    .promise-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .promise-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      color: var(--pink);
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    .promise-quote span {
+      color: var(--gold2);
+    }
+
+    .promise-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .pill {
+      background: linear-gradient(135deg, rgba(255,31,142,0.15), rgba(212,175,55,0.1));
+      border: 1px solid rgba(255,31,142,0.35);
+      color: var(--pink);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 8px 20px;
+      border-radius: 40px;
+    }
+
+    /* ─── CONTACT SECTION ─── */
+    .contact-section {
+      background: linear-gradient(160deg, #1a0010, #0d0020);
+      padding: 80px 20px;
+    }
+    .contact-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-card {
+      border: 1px solid rgba(212,175,55,0.4);
+      border-radius: 24px;
+      padding: 48px 32px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px);
+      margin-top: 36px;
+    }
+    .contact-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .contact-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .btn-wa-big {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 18px 44px;
+      border-radius: 60px;
+      transition: transform 0.2s, filter 0.2s;
+      animation: pulse-ring 2.5s ease-in-out infinite;
+    }
+    .btn-wa-big:hover {
+      transform: scale(1.06);
+      filter: brightness(1.1);
+    }
+    .wa-icon { font-size: 1.4rem; }
+
+    .social-row {
+      margin-top: 28px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+    .social-row a {
+      color: var(--pink);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #050505;
+      border-top: 1px solid rgba(212,175,55,0.15);
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .footer-diamond { font-size: 1.4rem; }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin: 4px 0;
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+      margin-top: 6px;
+    }
+
+    /* ─── SCROLL REVEAL (CSS only) ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .hero { padding: 80px 16px 50px; }
+      .service-card { padding: 24px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── STARS ── -->
+<div class="stars" id="stars"></div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="hero">
+  <p class="eyebrow">✦ Tu Asesora Personal ✦</p>
+  <span class="diamond-icon">💎</span>
+  <h1 class="hero-name">SANDRA</h1>
+  <p class="hero-sub">Multi Marcas</p>
+  <p class="hero-marcas">Belleza &nbsp;·&nbsp; Bienestar &nbsp;·&nbsp; Moda &nbsp;·&nbsp; Estilo</p>
+  <div class="divider-gold"></div>
+  <p class="hero-tagline">"Porque tú mereces asesoría honesta, atención cálida y productos de alta calidad"</p>
+  <br />
+  <a href="https://wa.me/573003378178" target="_blank" class="btn-whatsapp">
+    <span>💬</span> Escríbeme al WhatsApp
+  </a>
+</div>
+
+<!-- ══════════════ SERVICIOS ══════════════ -->
+<section>
+  <p class="section-eyebrow reveal">✦ Lo que ofrezco ✦</p>
+  <h2 class="section-title reveal">Mis Servicios</h2>
+  <div class="services-grid">
+
+    <div class="service-card reveal">
+      <span class="service-emoji">💋</span>
+      <p class="service-name">Maquillaje Profesional</p>
+      <p class="service-desc">Productos de alta gama para resaltar tu belleza natural con colores que te favorecen.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-emoji">🌿</span>
+      <p class="service-name">Cuidado de la Piel</p>
+      <p class="service-desc">Líneas veganas y naturales para nutrir, proteger e iluminar tu piel.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-emoji">🌺</span>
+      <p class="service-name">Fragancias Exclusivas</p>
+      <p class="service-desc">Perfumes únicos que te acompañan y definen tu esencia personal.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-emoji">👗</span>
+      <p class="service-name">Moda & Jeans</p>
+      <p class="service-desc">Ropa moderna y tendencias para que te veas espectacular todos los días.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-emoji">💪</span>
+      <p class="service-name">Bienestar Nutricional</p>
+      <p class="service-desc">Suplementos y productos para sentirte con energía, vitalidad y salud.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-emoji">📱</span>
+      <p class="service-name">Servicios Digitales</p>
+      <p class="service-desc">Netflix, Microsoft Office y más — todo a tu alcance al mejor precio.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-emoji">👧</span>
+      <p class="service-name">Para Adolescentes</p>
+      <p class="service-desc">Productos especialmente pensados para el cuidado y estilo juvenil.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <span class="service-emoji">🚀</span>
+      <p class="service-name">Emprendimiento</p>
+      <p class="service-desc">¿Quieres tu propio negocio? Yo te guío paso a paso para lograrlo.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ MARCAS ══════════════ -->
+<div class="brands-section">
+  <div class="brands-inner">
+    <p class="section-eyebrow reveal">✦ Con quienes trabajo ✦</p>
+    <h2 class="section-title reveal">Marcas de Confianza</h2>
+    <div class="brands-chips">
+      <span class="brand-chip">HGW</span>
+      <span class="brand-chip">Yanbal</span>
+      <span class="brand-chip">Mary Kay</span>
+      <span class="brand-chip">Natura</span>
+      <span class="brand-chip">Omnilife</span>
+      <span class="brand-chip">Seytu</span>
+      <span class="brand-chip">Kenya Vergara</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PROMESA ══════════════ -->
+<div class="promise-section">
+  <div class="promise-inner reveal">
+    <p class="section-eyebrow">✦ Mi compromiso ✦</p>
+    <h2 class="section-title">Mi Promesa Contigo</h2>
+    <p class="promise-quote">
+      Cada producto que recomiendo lo conozco, lo creo y lo respaldo.<br/>
+      <span>Tu mejor versión ya existe — solo necesita la guía correcta.</span>
+    </p>
+    <div class="promise-pills">
+      <span class="pill">💛 Asesoría Honesta</span>
+      <span class="pill">🤝 Atención Personalizada</span>
+      <span class="pill">⭐ Calidad Garantizada</span>
+      <span class="pill">🌿 Productos Probados</span>
+      <span class="pill">💬 Siempre Disponible</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CONTACTO ══════════════ -->
+<div class="contact-section">
+  <div class="contact-inner">
+    <p class="section-eyebrow reveal">✦ Hablemos ✦</p>
+    <h2 class="section-title reveal">¡Encontremos Juntas<br/>Tu Mejor Versión!</h2>
+    <div class="contact-card reveal">
+      <p class="contact-label">WhatsApp directo</p>
+      <p class="contact-number">+57 300 337 8178</p>
+      <a href="https://wa.me/573003378178?text=¡Hola%20Sandra!%20Me%20interesa%20tu%20asesoría%20personal%20💎" target="_blank" class="btn-wa-big">
+        <span class="wa-icon">💬</span> Escribir Ahora
+      </a>
+      <p class="social-row">
+        Colombia 🇨🇴 &nbsp;|&nbsp; <a href="https://wa.me/573003378178">Sandra Multi Marcas</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <span class="footer-diamond">💎</span>
+  <p class="footer-name">SANDRA MULTI MARCAS</p>
+  <p class="footer-copy">Belleza · Bienestar · Moda · Estilo &nbsp;|&nbsp; Colombia 🇨🇴</p>
+  <p class="footer-copy" style="margin-top:4px;">#Belleza #Bienestar #Maquillaje #CuidadoDeLaPiel #Natura #Yanbal #MaryKay #Omnilife #Seytu #Emprendimiento</p>
+</footer>
+
+<script>
+  /* ─── Generate stars ─── */
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      animation-delay: ${Math.random() * 3}s;
+      animation-duration: ${1.5 + Math.random() * 2}s;
+      opacity: ${0.2 + Math.random() * 0.5};
+    `;
+    starsEl.appendChild(s);
+  }
+
+  /* ─── Scroll reveal ─── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 0.1 + 's';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
+
+Page 1 of 9
